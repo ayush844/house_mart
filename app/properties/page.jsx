@@ -1,5 +1,9 @@
+
 const PropertiesPage = () => {
-    return ( <div>Properties Page</div> );
+
+    return ( <div>
+        properties page
+    </div> );
 }
  
 export default PropertiesPage;

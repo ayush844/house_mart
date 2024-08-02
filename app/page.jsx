@@ -7,8 +7,7 @@ const HomePage = () => {
         <h1 className=" text-3xl">Welcome Home</h1>
         <Link href={
             {
-                pathname: 'properties',
-                query: {name: 'test'}
+                pathname: 'properties'
             }
         }>Go To Properties</Link>
     </div> );
