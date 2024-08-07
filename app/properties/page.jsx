@@ -1,7 +1,16 @@
 import ProperyCard from '@/components/PropertyCard';
-import properties from '@/properties.json'
 
-const PropertiesPage = () => {
+import connectDB from '@/config/database';
+
+import Property from '@/models/Property';
+
+
+const PropertiesPage = async () => {
+
+    await connectDB();
+
+    const properties = await Property.find({}).lean();
+
 
     return ( 
     <section className=' px-4 py-6'>
