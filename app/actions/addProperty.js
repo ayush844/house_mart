@@ -6,6 +6,8 @@ import { getSessionUser } from "@/utils/getSessionUser";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import cloudinary from "@/config/cloudinary";
+
 
 
 async function addProperty(formData){
@@ -23,7 +25,7 @@ async function addProperty(formData){
     // accessing all vlues from amenities and images
     // [we are accesssing trough names of the fields]
     const amenities = formData.getAll('amenities');
-    const images = formData.getAll('images').filter(image => image.name !== '').map(image => image.name);
+    const images = formData.getAll('images').filter(image => image.name !== '')
     
     const propertData = {
         owner: userId,
@@ -49,9 +51,28 @@ async function addProperty(formData){
             name: formData.get('seller_info.name'),
             email: formData.get('seller_info.email'),
             phone: formData.get('seller_info.phone'),
-        },
-        images
+        }
     }
+
+    const imageUrls = [];
+
+    for(const imageFile of images){
+        const imageBuffer = await imageFile.arrayBuffer();
+        const imageArray = Array.from(new Uint8Array(imageBuffer));
+        const imageData = Buffer.from(imageArray);
+
+        // convert to base 64
+        const imageBase64 = imageData.toString('base64');
+
+        // make request to cloudinary
+        const result = await cloudinary.uploader.upload(`data:image/png;base64,${imageBase64}`, {
+            folder: 'house_mart'
+        });
+
+        imageUrls.push(result.secure_url);
+    }
+
+    propertData.images = imageUrls;
 
 
     const newProperty = new Property(propertData);
