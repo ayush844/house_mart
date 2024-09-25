@@ -9,7 +9,7 @@ const PropertiesPage = async () => {
 
     await connectDB();
 
-    const properties = await Property.find({}).lean();
+    const properties = await Property.find({}).sort({createdAt: -1}).lean();
 
 
     return ( 
