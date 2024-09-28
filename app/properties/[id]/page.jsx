@@ -8,6 +8,9 @@ import { FaArrowLeft } from "react-icons/fa";
 import PropertyDetails from "@/components/PropertyDetails";
 import PropertyImages from "@/components/PropertyImages";
 import { convertToSerializableObject } from "@/utils/ConvertToObject";
+import BookmarkButton from "@/components/BookmarkButton";
+import ShareButtons from "@/components/ShareButtons";
+import PropertyConatctForm from "@/components/PropertyContactForm";
 
 const PropertyPage = async ({params, searchParams}) => {
 
@@ -46,6 +49,11 @@ const PropertyPage = async ({params, searchParams}) => {
                 <div className="container m-auto py-10 px-6">
                     <div className="grid grid-cols-1 md:grid-cols-70/30 w-full gap-6">
                         <PropertyDetails property={property} />
+                        <aside className="space-y-4">
+                            <BookmarkButton property={property} />
+                            <ShareButtons property={property} />
+                            <PropertyConatctForm property={property} />
+                        </aside>
                     </div>
                 </div>
             </section>
