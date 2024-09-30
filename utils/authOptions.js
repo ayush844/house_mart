@@ -61,5 +61,10 @@ export const authOptions = {
             return session;
             
         }
-    }
+    },
+    session: {
+        strategy: 'jwt', // Use JWT-based sessions
+        maxAge: 30 * 24 * 60 * 60, // 30 days (set how long the session lasts)
+        updateAge: 24 * 60 * 60, // Update session every 24 hours
+      },
 }  
